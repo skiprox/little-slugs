@@ -7,11 +7,17 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "npm run css && npm run js",
+    "watch": "npm run build && parallelshell \"npm run watch:css\" \"npm run watch:js\"",
+    "css": "node-sass public/scss/main.scss public/css/main.css --output-style compressed && postcss --use autoprefixer public/css/*.css -d public/css/",
+    "watch:css": "onchange 'public/scss/**/*.scss' -- npm run css",
+    "js": "browserify public/js/app.js -o public/js/app.built.js",
+    "watch:js": "onchange 'public/**/*.js' -- npm run js"
   },
   "dependencies": {
-    "ejs": "2.4.1",
-    "express": "4.13.3"
+    "ejs": "^2.4.1",
+    "express": "^4.13.3"
   },
   "repository": {
     "type": "git",
@@ -22,5 +28,13 @@
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^6.5.3",
+    "browserify": "^13.1.1",
+    "node-sass": "^3.13.0",
+    "onchange": "^3.0.2",
+    "parallelshell": "^2.0.0",
+    "postcss-cli": "^2.6.0"
+  }
 }
