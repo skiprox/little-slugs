@@ -5,11 +5,43 @@ var Painting = require('./painting.js');
 
 var Public = (function() {
 
-	var sharedPainting;
+	// The shared painting object
+	var SharedPainting;
+
+	// The UI elements
+	var UI = {
+		body: null,
+		canvas: null
+	};
 
 	var initialize = function() {
-		console.log('we init');
-		sharedPainting = new Painting();
+		storeElements();
+		SharedPainting = new Painting();
+	};
+
+	var storeElements = function() {
+		UI.body = document.body;
+		UI.canvas = document.getElementById('canvas');
+	};
+
+	var addDomListeners = function() {
+		UI.canvas.addEventListener('mouse move', function(e) {
+			socket.emit('mouse move', {
+				xPos: e.pageX,
+				yPos: e.pageY
+			});
+		});
+	};
+
+	var addSocketListeners = function() {
+		socket.on('mouse move', function(data) {
+			onMousemove(data);
+		});
+	};
+
+	var onMousemove = function(data) {
+		console.log('we receive data', data);
+		SharedPainting.drawPainting(data.xPos, data.yPos);
 	};
 
 	return {
@@ -24,14 +56,17 @@ Public.init();
 },{"./painting.js":2}],2:[function(require,module,exports){
 'use strict';
 
-function Painting() {
-	this.setup();
+function Painting(autoDraw) {
+	this.setup(autoDraw);
 	this.addListeners();
 }
 
 var proto = Painting.prototype;
 
-proto.setup = function() {
+proto.setup = function(autoDraw) {
+	console.log(typeof autoDraw);
+	this.autoDraw = typeof autoDraw === 'undefined' ? true : autoDraw;
+	console.log('this is autodrawing', this.autoDraw);
 	this.colorSwitchCount = 0;
 	this.canvas = document.getElementById('canvas');
 	this.update();
@@ -47,9 +82,11 @@ proto.setup = function() {
 
 proto.addListeners = function() {
 	window.addEventListener('resize', this.update);
-	this.canvas.addEventListener('mousemove', this._onMousemove);
 	this.canvas.addEventListener('click', this._onMouseClick);
 	document.addEventListener('keydown', this._onKeydown);
+	if (this.autoDraw) {
+		this.canvas.addEventListener('mousemove', this._onMousemove);
+	}
 };
 
 proto.update = function() {

@@ -1,13 +1,16 @@
 'use strict';
 
-function Painting() {
-	this.setup();
+function Painting(autoDraw) {
+	this.setup(autoDraw);
 	this.addListeners();
 }
 
 var proto = Painting.prototype;
 
-proto.setup = function() {
+proto.setup = function(autoDraw) {
+	console.log(typeof autoDraw);
+	this.autoDraw = typeof autoDraw === 'undefined' ? true : autoDraw;
+	console.log('this is autodrawing', this.autoDraw);
 	this.colorSwitchCount = 0;
 	this.canvas = document.getElementById('canvas');
 	this.update();
@@ -23,9 +26,11 @@ proto.setup = function() {
 
 proto.addListeners = function() {
 	window.addEventListener('resize', this.update);
-	this.canvas.addEventListener('mousemove', this._onMousemove);
 	this.canvas.addEventListener('click', this._onMouseClick);
 	document.addEventListener('keydown', this._onKeydown);
+	if (this.autoDraw) {
+		this.canvas.addEventListener('mousemove', this._onMousemove);
+	}
 };
 
 proto.update = function() {
