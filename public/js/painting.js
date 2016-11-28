@@ -56,7 +56,7 @@ proto._onKeydown = function(e) {
 proto.drawPainting = function(xPos, yPos) {
 	var rgbString;
 	this.ctx.beginPath();
-	this.ctx.arc(xPos, yPos, 50, 0, 2 * Math.PI, false);
+	this.ctx.arc(xPos, yPos, 40, 0, 2 * Math.PI, false);
 	switch(this.colorSwitchCount) {
 		case 0:
 			rgbString = 'rgb(' + Math.floor((xPos/this.width)*255) + ', ' + Math.floor((yPos/this.height)*255) + ', 100)';
