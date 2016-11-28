@@ -8,9 +8,7 @@ function Painting(autoDraw) {
 var proto = Painting.prototype;
 
 proto.setup = function(autoDraw) {
-	console.log(typeof autoDraw);
 	this.autoDraw = typeof autoDraw === 'undefined' ? true : autoDraw;
-	console.log('this is autodrawing', this.autoDraw);
 	this.colorSwitchCount = 0;
 	this.canvas = document.getElementById('canvas');
 	this.update();
@@ -58,7 +56,7 @@ proto._onKeydown = function(e) {
 proto.drawPainting = function(xPos, yPos) {
 	var rgbString;
 	this.ctx.beginPath();
-	this.ctx.arc(xPos, yPos, 20, 0, 2 * Math.PI, false);
+	this.ctx.arc(xPos, yPos, 50, 0, 2 * Math.PI, false);
 	switch(this.colorSwitchCount) {
 		case 0:
 			rgbString = 'rgb(' + Math.floor((xPos/this.width)*255) + ', ' + Math.floor((yPos/this.height)*255) + ', 100)';

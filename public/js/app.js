@@ -15,8 +15,10 @@ var Public = (function() {
 	};
 
 	var initialize = function() {
-		storeElements();
 		SharedPainting = new Painting(false);
+		storeElements();
+		addDomListeners();
+		addSocketListeners();
 	};
 
 	var storeElements = function() {
@@ -25,7 +27,7 @@ var Public = (function() {
 	};
 
 	var addDomListeners = function() {
-		UI.canvas.addEventListener('mouse move', function(e) {
+		UI.canvas.addEventListener('mousemove', function(e) {
 			socket.emit('mouse move', {
 				xPos: e.pageX,
 				yPos: e.pageY
@@ -40,7 +42,6 @@ var Public = (function() {
 	};
 
 	var onMousemove = function(data) {
-		console.log('we receive data', data);
 		SharedPainting.drawPainting(data.xPos, data.yPos);
 	};
 
