@@ -5,6 +5,8 @@ var io = require('socket.io')(http);
 
 var App = (function() {
 
+	var userCount = 0;
+
 	var setup = function() {
 		app.set('port', (process.env.PORT || 5000));
 		app.use(express.static(__dirname + '/public'));
@@ -18,10 +20,20 @@ var App = (function() {
 
 	var onIO = function() {
 		io.on('connection', function(socket) {
+			userCount++;
+			io.emit('add user', {
+				users: userCount
+			});
 			socket.on('mouse move', function(data) {
 				io.emit('mouse move', {
 					xPos: data.xPos,
 					yPos: data.yPos
+				});
+			});
+			socket.on('disconnect', function() {
+				userCount--;
+				io.emit('drop user', {
+					users: userCount
 				});
 			});
 		});

@@ -12,7 +12,8 @@ var Public = (function() {
 	// The UI elements
 	var UI = {
 		body: null,
-		canvas: null
+		canvas: null,
+		userList: null
 	};
 
 	var initialize = function() {
@@ -25,6 +26,7 @@ var Public = (function() {
 	var storeElements = function() {
 		UI.body = document.body;
 		UI.canvas = document.getElementById('canvas');
+		UI.userList = document.getElementById('user-list');
 	};
 
 	var addDomListeners = function() {
@@ -40,10 +42,20 @@ var Public = (function() {
 		socket.on('mouse move', function(data) {
 			onMousemove(data);
 		});
+		socket.on('add user', function(data) {
+			updateUsers(data);
+		});
+		socket.on('drop user', function(data) {
+			updateUsers(data);
+		});
 	};
 
 	var onMousemove = function(data) {
 		SharedPainting.drawPainting(data.xPos, data.yPos);
+	};
+
+	var updateUsers = function(data) {
+		UI.userList.textContent = 'Users: ' + data.users;
 	};
 
 	return {
