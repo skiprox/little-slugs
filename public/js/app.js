@@ -1,5 +1,6 @@
 'use strict';
 
+var socket = io();
 var Painting = require('./painting.js');
 
 var Public = (function() {
@@ -15,7 +16,7 @@ var Public = (function() {
 
 	var initialize = function() {
 		storeElements();
-		SharedPainting = new Painting();
+		SharedPainting = new Painting(false);
 	};
 
 	var storeElements = function() {

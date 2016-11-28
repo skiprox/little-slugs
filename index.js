@@ -18,7 +18,9 @@ var App = (function() {
 
 	var onIO = function() {
 		io.on('connection', function(socket) {
+			console.log('we connected to io on backend');
 			socket.on('mouse move', function(data) {
+				console.log('we are getting a mousemove event from the front end');
 				io.emit('mouse move', {
 					xPos: data.xPos,
 					yPos: data.yPos
