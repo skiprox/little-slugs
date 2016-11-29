@@ -81,8 +81,8 @@ proto.setup = function(autoDraw) {
 	this.autoDraw = typeof autoDraw === 'undefined' ? true : autoDraw;
 	this.colorSwitchCount = 0;
 	this.canvas = document.getElementById('canvas');
-	this.update();
 	this.ctx = this.canvas.getContext('2d');
+	this.update();
 	this.ctx.fillStyle = 'rgb(0, 0, 0)';
 	this.ctx.fillRect(0, 0, this.width, this.height);
 	// Bind listeners
@@ -106,6 +106,8 @@ proto.update = function() {
 	this.height = window.innerHeight;
 	this.canvas.width = this.width;
 	this.canvas.height = this.height;
+	this.ctx.fillStyle = 'rgb(0, 0, 0)';
+	this.ctx.fillRect(0, 0, this.width, this.height);
 };
 
 proto._onMousemove = function(e) {
