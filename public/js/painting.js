@@ -28,6 +28,7 @@ proto.addListeners = function() {
 	document.addEventListener('keydown', this._onKeydown);
 	if (this.autoDraw) {
 		this.canvas.addEventListener('mousemove', this._onMousemove);
+		this.canvas.addEventListener('touchmove', this._onMousemove);
 	}
 };
 
@@ -41,6 +42,7 @@ proto.update = function() {
 };
 
 proto._onMousemove = function(e) {
+	console.log('something whatever', e);
 	this.drawPainting(e.pageX, e.pageY);
 };
 

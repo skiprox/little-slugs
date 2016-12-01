@@ -35,6 +35,14 @@ var Public = (function() {
 				yPos: e.pageY
 			});
 		});
+		UI.canvas.addEventListener('touchmove', function(e) {
+			if (e.touches) {
+				socket.emit('mouse move', {
+					xPos: e.touches[0].pageX,
+					yPos: e.touches[0].pageY
+				});
+			}
+		});
 	};
 
 	var addSocketListeners = function() {
