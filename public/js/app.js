@@ -37,6 +37,7 @@ var Public = (function() {
 		});
 		UI.canvas.addEventListener('touchmove', function(e) {
 			if (e.touches) {
+				e.preventDefault();
 				socket.emit('mouse move', {
 					xPos: e.touches[0].pageX,
 					yPos: e.touches[0].pageY
