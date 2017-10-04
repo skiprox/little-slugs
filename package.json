@@ -1,10 +1,7 @@
 {
   "name": "node-js-getting-started",
   "version": "0.2.5",
-  "description": "A sample Node.js app using Express 4",
-  "engines": {
-    "node": "6.11.1"
-  },
+  "description": "Draw some little slugs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
