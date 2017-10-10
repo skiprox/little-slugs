@@ -5,4 +5,4 @@ This gives you a shared canvas with any number of other people. It uses socket a
 
 ### See it in action!
 
-go to [this page](https://little-slugs.herokuapp.com/).
+go to [this page](http://slugs.twotabsofacid.com/).
